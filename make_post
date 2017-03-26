@@ -1,0 +1,27 @@
+#!/bin/bash
+
+#If no title is set
+if [ -z "$1" -a "$1" != " " ]; then
+    echo "Please specifiy a title"
+    exit
+fi
+
+TITLE=${1}
+FORMAT='md'
+DATE=`date +%F`
+TIME=`date +%T`
+FILENAME=${DATE}-${TITLE// /-}.${FORMAT}
+
+echo "Creating ${FILENAME}"
+
+
+POST_DIRECTORY=_posts
+#Generating the file
+
+POST_PATH=${POST_DIRECTORY}/${FILENAME}
+echo " - creating file: ${POST_PATH}"
+echo "---" >> $POST_PATH
+echo "layout: post" >> $POST_PATH
+echo "title: ${TITLE}" >> $POST_PATH
+echo "date: $(date +%F\ %T\ %Z)" >> $POST_PATH
+echo "---" >> $POST_PATH
